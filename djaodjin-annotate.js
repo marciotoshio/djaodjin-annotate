@@ -310,15 +310,19 @@ MIT License
       self.img = new Image();
       self.img.src = image.path;
       self.img.onload = function() {
-        if ((self.options.width && self.options.height) !== undefined ||
-          (self.options.width && self.options.height) !== 0) {
-          self.currentWidth = this.width;
+        if( typeof self.options.width === undefined || !self.options.width ) {
+            self.currentWidth = this.width;
+            self.selectImageSize.width = this.width;
+        } else {
+            self.currentWidth = self.options.width;
+            self.selectImageSize.width = self.options.width;
+        }
+        if( typeof self.options.height === undefined || !self.options.height ) {
           self.currentHeight = this.height;
-          self.selectImageSize.width = this.width;
           self.selectImageSize.height = this.height;
         } else {
-          self.currentWidth = self.options.width;
           self.currentHeight = self.options.height;
+          self.selectImageSize.height = self.options.height;
         }
         self.baseCanvas.width = self.drawingCanvas.width = self.currentWidth;
         self.baseCanvas.height = self.drawingCanvas.height = self.currentHeight;
